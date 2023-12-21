@@ -21,6 +21,7 @@
         "ext-fileinfo": "*",
         "illuminate/contracts": "^10.0",
         "illuminate/filesystem": "^10.0",
+        "illuminate/http": "^10.0",
         "illuminate/support": "^10.0",
         "league/flysystem": "^3.0"
     },

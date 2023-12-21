@@ -63,7 +63,7 @@ Storage::disk('supabase')->getAdapter()->getPublicUrl('completelyPublicFile.png'
 // Custom function to generate a signed URL
 Storage::disk('supabase')->getAdapter()->getSignedUrl('veryConfidentialFile.png', [
     'expiresIn' => 60 * 5, // 5 minutes
- //... Same options as getPublicUrl
+    //... Same options as getPublicUrl
 ]);
 ```
 

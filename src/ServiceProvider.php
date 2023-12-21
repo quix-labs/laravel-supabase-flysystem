@@ -18,6 +18,7 @@ class ServiceProvider extends BaseServiceProvider
 
         Storage::extend('supabase', function (Application $app, array $config) {
             $adapter = new SupabaseAdapter($config);
+
             return new FilesystemAdapter(
                 new Filesystem($adapter, $config),
                 $adapter,
@@ -56,5 +57,4 @@ class ServiceProvider extends BaseServiceProvider
     public function register()
     {
     }
-
 }

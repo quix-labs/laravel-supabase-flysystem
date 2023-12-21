@@ -2,9 +2,9 @@
 
 namespace Alancolant\FlysystemSupabaseAdapter\Tests;
 
+use Alancolant\FlysystemSupabaseAdapter\FlysystemSupabaseAdapterServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Alancolant\FlysystemSupabaseAdapter\FlysystemSupabaseAdapterServiceProvider;
 
 class TestCase extends Orchestra
 {

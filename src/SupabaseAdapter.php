@@ -25,25 +25,29 @@ use League\Flysystem\UnableToWriteFile;
 
 class SupabaseAdapter implements FilesystemAdapter
 {
+    private const EMPTY_FOLDER_PLACEHOLDER_NAME = '.emptyFolderPlaceholder';
 
-    private const EMPTY_FOLDER_PLACEHOLDER_NAME = ".emptyFolderPlaceholder";
     private Config $config;
+
     private string $endpoint;
+
     private string $bucket;
+
     private string $key;
+
     private PendingRequest $httpClient;
 
     public function __construct(array $config)
     {
         $this->config = new Config($config);
-        $this->endpoint = $this->config->get('endpoint') . '/storage/v1';
+        $this->endpoint = $this->config->get('endpoint').'/storage/v1';
         $this->bucket = $this->config->get('bucket');
         $this->key = $this->config->get('key');
 
         $this->httpClient = Http::baseUrl($this->endpoint)->withHeaders([
             'Authorization' => "Bearer {$this->key}",
-            'apiKey'        => $this->key,
-            'Content-Type'  => "application/json",
+            'apiKey' => $this->key,
+            'Content-Type' => 'application/json',
         ]);
     }
 
@@ -54,14 +58,15 @@ class SupabaseAdapter implements FilesystemAdapter
 
     public function directoryExists(string $path): bool
     {
-        $response = $this->httpClient->post("/object/list/{$this->bucket}", ["prefix" => $path, "limit" => 1]);
+        $response = $this->httpClient->post("/object/list/{$this->bucket}", ['prefix' => $path, 'limit' => 1]);
+
         return count($response->json()) >= 1;
     }
 
     public function write(string $path, string $contents, Config $config): void
     {
         $res = (clone $this->httpClient)->withHeaders([
-            'x-upsert'      => 'true',
+            'x-upsert' => 'true',
             'Cache-Control' => 3600,
         ])->withBody($contents, (new \finfo(FILEINFO_MIME))->buffer($contents))
             ->post("/object/{$this->bucket}/{$path}");
@@ -74,24 +79,22 @@ class SupabaseAdapter implements FilesystemAdapter
             }
         }
 
-
         // If duplicate, delete file and recreate
-        if ($res->status() === 400 && $res->json('statusCode') === "409") {
+        if ($res->status() === 400 && $res->json('statusCode') === '409') {
             $this->delete($path);
             $this->write($path, $contents, $config);
+
             return;
         }
 
-        if (!$res->successful() || $res->json('Id') === null) {
+        if (! $res->successful() || $res->json('Id') === null) {
             throw UnableToWriteFile::atLocation($path);
         }
     }
 
     /**
-     * @param string $path
-     * @param resource $contents
-     * @param Config $config
-     * @return void
+     * @param  resource  $contents
+     *
      * @throws FilesystemException
      */
     public function writeStream(string $path, $contents, Config $config): void
@@ -106,7 +109,7 @@ class SupabaseAdapter implements FilesystemAdapter
 
         $response = $this->httpClient->get("/object/{$this->bucket}/{$path}");
 
-        if (!$response->successful()) {
+        if (! $response->successful()) {
             throw UnableToReadFile::fromLocation($path);
         }
 
@@ -116,32 +119,33 @@ class SupabaseAdapter implements FilesystemAdapter
     public function readStream(string $path)
     {
         $response = (clone $this->httpClient)->withOptions(['stream' => true])->get("/object/{$this->bucket}/{$path}");
+
         return Utils::streamFor($response)->detach();
     }
 
     public function delete(string $path): void
     {
-        if (!$this->fileExists($path)) {
+        if (! $this->fileExists($path)) {
             return;
         }
 
         $res = $this->httpClient->delete("/object/{$this->bucket}", ['prefixes' => [$path]]);
-        if (!$res->successful() || count($res->json()) == 0) {
+        if (! $res->successful() || count($res->json()) == 0) {
             throw UnableToDeleteFile::atLocation($path);
         }
     }
 
     public function deleteDirectory(string $path): void
     {
-        if (!$this->directoryExists($path)) {
+        if (! $this->directoryExists($path)) {
             return;
         }
         /** @var \Generator $itemsGenerator */
         $itemsGenerator = $this->listContents($path, true);
-        $prefixes = array_map(fn(StorageAttributes $item) => $item->path(), iterator_to_array($itemsGenerator));
+        $prefixes = array_map(fn (StorageAttributes $item) => $item->path(), iterator_to_array($itemsGenerator));
 
         $res = $this->httpClient->delete("/object/{$this->bucket}", ['prefixes' => $prefixes]);
-        if (!$res->successful() || count($res->json()) == 0) {
+        if (! $res->successful() || count($res->json()) == 0) {
             throw UnableToDeleteDirectory::atLocation($path);
         }
     }
@@ -172,6 +176,7 @@ class SupabaseAdapter implements FilesystemAdapter
     public function mimeType(string $path): FileAttributes
     {
         $item = $this->_getFileInfo($path);
+
         return new FileAttributes(path: $path, mimeType: Arr::get($item, 'metadata.mimetype'));
     }
 
@@ -180,12 +185,14 @@ class SupabaseAdapter implements FilesystemAdapter
         $item = $this->_getFileInfo($path);
         $lastModified = Arr::get($item, 'metadata.lastModified');
         $lastModified = $lastModified ? Carbon::parse($lastModified)->unix() : null;
+
         return new FileAttributes(path: $path, lastModified: $lastModified);
     }
 
     public function fileSize(string $path): FileAttributes
     {
         $item = $this->_getFileInfo($path);
+
         return new FileAttributes(path: $path, fileSize: Arr::get($item, 'metadata.size'));
     }
 
@@ -193,15 +200,14 @@ class SupabaseAdapter implements FilesystemAdapter
     {
 
         $response = $this->httpClient->post("/object/list/{$this->bucket}", [
-            "prefix" => $path,
-            "limit"  => 100,
-            "offset" => 0,
-            "sortBy" => [
-                "column" => "name",
-                "order"  => "asc",
-            ]
+            'prefix' => $path,
+            'limit' => 100,
+            'offset' => 0,
+            'sortBy' => [
+                'column' => 'name',
+                'order' => 'asc',
+            ],
         ]);
-
 
         foreach ($response->json() as $item) {
 
@@ -213,7 +219,7 @@ class SupabaseAdapter implements FilesystemAdapter
                     extraMetadata: Arr::get($item, 'metadata') ?? [],
                 );
 
-                if (!$deep) {
+                if (! $deep) {
                     continue;
                 }
                 // Recursive strategy if deep is true
@@ -223,7 +229,6 @@ class SupabaseAdapter implements FilesystemAdapter
 
                 continue;
             }
-
 
             $lastModified = Arr::get($item, 'metadata.lastModified');
             $lastModified = $lastModified ? Carbon::parse($lastModified)->unix() : null;
@@ -246,19 +251,20 @@ class SupabaseAdapter implements FilesystemAdapter
     public function move(string $source, string $destination, Config $config): void
     {
         $res = $this->httpClient->post('/object/move', [
-            'bucketId'       => $this->bucket,
-            'sourceKey'      => $source,
+            'bucketId' => $this->bucket,
+            'sourceKey' => $source,
             'destinationKey' => $destination,
         ]);
 
         // If destination already exists, delete file and rerun
-        if ($res->status() === 400 && $res->json('statusCode') === "409") {
+        if ($res->status() === 400 && $res->json('statusCode') === '409') {
             $this->delete($destination);
             $this->move($source, $destination, $config);
+
             return;
         }
 
-        if (!$res->successful()) {
+        if (! $res->successful()) {
             throw UnableToMoveFile::fromLocationTo($source, $destination);
         }
     }
@@ -266,19 +272,20 @@ class SupabaseAdapter implements FilesystemAdapter
     public function copy(string $source, string $destination, Config $config): void
     {
         $res = $this->httpClient->post('/object/copy', [
-            'bucketId'       => $this->bucket,
-            'sourceKey'      => $source,
+            'bucketId' => $this->bucket,
+            'sourceKey' => $source,
             'destinationKey' => $destination,
         ]);
 
         // If destination already exists, delete file and rerun
-        if ($res->status() === 400 && $res->json('statusCode') === "409") {
+        if ($res->status() === 400 && $res->json('statusCode') === '409') {
             $this->delete($destination);
             $this->copy($source, $destination, $config);
+
             return;
         }
 
-        if (!$res->successful() || $res->json('Key') === null) {
+        if (! $res->successful() || $res->json('Key') === null) {
             throw UnableToCopyFile::fromLocationTo($source, $destination);
         }
 
@@ -299,35 +306,35 @@ class SupabaseAdapter implements FilesystemAdapter
         };
     }
 
-
     public function getSignedUrl(string $path, array $options = []): string
     {
         $options['expiresIn'] = $options['expiresIn'] ?? $this->config->get('signedUrlExpires', 3600);
-        $_queryString = "";
+        $_queryString = '';
 
-        if (Arr::get($options, 'transform') && !str_starts_with($this->mimeType($path)->mimeType(), 'image/')) {
+        if (Arr::get($options, 'transform') && ! str_starts_with($this->mimeType($path)->mimeType(), 'image/')) {
             unset($options['transform']);
         }
 
         if (Arr::get($options, 'download')) {
-            $_queryString = "&download";
+            $_queryString = '&download';
             unset($options['download']);
         }
 
         $res = $this->httpClient->post("/object/sign/{$this->bucket}/{$path}", $options);
-        if (!$res->successful() || $res->json('signedURL') === null) {
+        if (! $res->successful() || $res->json('signedURL') === null) {
             throw new UnableToGenerateTemporaryUrl($res->body(), $path);
         }
 
         $url = $this->config->get('url', $this->endpoint);
+
         return urldecode($this->_join($url, $res->json('signedURL')).$_queryString);
     }
 
     public function getPublicUrl(string $path, array $options = []): string
     {
         $public = $this->config->get('public', true);
-        if (!$public) {
-            throw new \RuntimeException("Your filesystem is not configured to allow public url");
+        if (! $public) {
+            throw new \RuntimeException('Your filesystem is not configured to allow public url');
         }
         $url = $this->config->get('url', $this->endpoint);
         $renderPath = 'object';
@@ -344,20 +351,20 @@ class SupabaseAdapter implements FilesystemAdapter
         }
 
         $_queryString = collect($_queryParams)
-            ->map(fn($value, $key) => $key . ($value ? "=$value" : ''))
+            ->map(fn ($value, $key) => $key.($value ? "=$value" : ''))
             ->join('&');
 
-        if ($_queryString != "") {
+        if ($_queryString != '') {
             $_queryString = "?$_queryString";
         }
-        return urldecode($this->_join($url, $renderPath, "/public/", $this->bucket, $path) . $_queryString);
-    }
 
+        return urldecode($this->_join($url, $renderPath, '/public/', $this->bucket, $path).$_queryString);
+    }
 
     private function _join(...$paths): string
     {
         return collect($paths)
-            ->map(fn(string $path) => str($path)->rtrim('/')->ltrim('/')->toString())
+            ->map(fn (string $path) => str($path)->rtrim('/')->ltrim('/')->toString())
             ->filter()
             ->join('/');
     }
@@ -365,24 +372,25 @@ class SupabaseAdapter implements FilesystemAdapter
     private function _getFileInfo(string $path): array
     {
         $folderPath = pathinfo($path, PATHINFO_DIRNAME);
-        $folderPath = $folderPath === "." ? "" : $folderPath;
+        $folderPath = $folderPath === '.' ? '' : $folderPath;
 
         $filename = pathinfo($path, PATHINFO_BASENAME);
 
         $response = $this->httpClient->post("/object/list/{$this->bucket}", [
-            "prefix" => $folderPath,
-            "limit"  => 100,
-            "search" => $filename,
+            'prefix' => $folderPath,
+            'limit' => 100,
+            'search' => $filename,
         ]);
 
-        if (!$response->successful() || count($response->json()) === 0) {
+        if (! $response->successful() || count($response->json()) === 0) {
             throw UnableToReadFile::fromLocation($path);
         }
 
         $item = collect($response->json())->firstWhere('name', $filename);
-        if (!$item) {
+        if (! $item) {
             throw UnableToReadFile::fromLocation($path);
         }
+
         return $item;
     }
 }

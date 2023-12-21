@@ -25,7 +25,7 @@ use League\Flysystem\UnableToWriteFile;
 
 class SupabaseAdapter implements FilesystemAdapter
 {
-    private const EMPTY_FOLDER_PLACEHOLDER_NAME = '.emptyFolderPlaceholder';
+    protected const EMPTY_FOLDER_PLACEHOLDER_NAME = '.emptyFolderPlaceholder';
 
     private Config $config;
 

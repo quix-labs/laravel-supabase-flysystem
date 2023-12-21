@@ -25,30 +25,6 @@ class ServiceProvider extends BaseServiceProvider
                 $config
             );
         });
-
-        Storage::macro('signedUrl', function (...$args): string {
-            /** @var $this FilesystemAdapter */
-            $adapter = $this->getAdapter();
-            if ($adapter instanceof SupabaseAdapter) {
-                return $adapter->getSignedUrl(...$args);
-            }
-            if (method_exists($this, 'signedUrl') || $this->hasMacro('signedUrl')) {
-                return $this->signedUrl(...$args);
-            }
-            throw new \RuntimeException('This driver does not support retrieving signed URLs.');
-        });
-        Storage::macro('publicUrl', function (...$args): string {
-            /** @var $this FilesystemAdapter */
-            $adapter = $this->getAdapter();
-            if ($adapter instanceof SupabaseAdapter) {
-                return $adapter->getPublicUrl(...$args);
-            }
-
-            if (method_exists($this, 'publicUrl') || $this->hasMacro('publicUrl')) {
-                return $this->publicUrl(...$args);
-            }
-            throw new \RuntimeException('This driver does not support retrieving signed URLs.');
-        });
     }
 
     /**

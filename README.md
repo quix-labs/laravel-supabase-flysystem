@@ -10,13 +10,21 @@ Easily integrate Supabase as a storage driver in Laravel with this Flysystem ada
 
 Simplify file storage and retrieval using Laravel's convenient storage system while leveraging the powerful features of Supabase.
 ___
+
+## Requirements
+* PHP version >= 8.1
+* Laravel 10.x
+* Fileinfo `ext-fileinfo`  (probably present)
+
+
 ## Installation
 
 To install the package, use Composer:
-
 ```bash
 composer require alancolant/flysystem-supabase-adapter
 ```
+
+#### Configuration
 
 After installation, configure the Supabase driver in Laravel's `config/filesystems.php`.
 

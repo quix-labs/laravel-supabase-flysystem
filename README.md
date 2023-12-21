@@ -1,8 +1,8 @@
 # Very short description of the package
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/alancolant/laravel-boostedemail.svg?style=flat-square)](https://packagist.org/packages/alancolant/laravel-boostedemail)
-[![Total Downloads](https://img.shields.io/packagist/dt/alancolant/laravel-boostedemail.svg?style=flat-square)](https://packagist.org/packages/alancolant/laravel-boostedemail)
-![GitHub Actions](https://github.com/alancolant/laravel-boostedemail/actions/workflows/main.yml/badge.svg)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/alancolant/flysystem-supabase-adapter.svg?style=flat-square)](https://packagist.org/packages/alancolant/laravel-boostedemail)
+[![Total Downloads](https://img.shields.io/packagist/dt/alancolant/laravel-boostedemail.svg?style=flat-square)](https://packagist.org/packages/alancolant/flysystem-supabase-adapter)
+![GitHub Actions](https://github.com/alancolant/flysystem-supabase-adapter/actions/workflows/main.yml/badge.svg)
 
 This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what PSRs you support to avoid any confusion with users and contributors.
 

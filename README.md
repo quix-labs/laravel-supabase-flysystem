@@ -1,8 +1,10 @@
-# Very short description of the package
+# This is my package flysystem-supabase-adapter
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/alancolant/flysystem-supabase-adapter.svg?style=flat-square)](https://packagist.org/packages/alancolant/laravel-boostedemail)
-[![Total Downloads](https://img.shields.io/packagist/dt/alancolant/laravel-boostedemail.svg?style=flat-square)](https://packagist.org/packages/alancolant/flysystem-supabase-adapter)
-![GitHub Actions](https://github.com/alancolant/flysystem-supabase-adapter/actions/workflows/main.yml/badge.svg)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/alancolant/flysystem-supabase-adapter.svg?style=flat-square)](https://packagist.org/packages/alancolant/flysystem-supabase-adapter)
+[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/alancolant/flysystem-supabase-adapter/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/alancolant/flysystem-supabase-adapter/actions?query=workflow%3Arun-tests+branch%3Ama>
+[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/alancolant/flysystem-supabase-adapter/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/alancolant/flysystem-supabase-adapter/actions?query=work>
+[![Total Downloads](https://img.shields.io/packagist/dt/alancolant/flysystem-supabase-adapter.svg?style=flat-square)](https://packagist.org/packages/alancolant/flysystem-supabase-adapter)
+
 
 This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what PSRs you support to avoid any confusion with users and contributors.
 

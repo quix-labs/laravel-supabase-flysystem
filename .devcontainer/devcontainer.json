@@ -3,7 +3,7 @@
 {
 	"name": "PHP",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	"image": "mcr.microsoft.com/devcontainers/php:1-8.2-bullseye",
+	"image": "mcr.microsoft.com/devcontainers/php:1-8.2-bookworm",
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
 	// Configure tool-specific properties.
@@ -16,9 +16,13 @@
 	},
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	"forwardPorts": [
-		8080,
-		9000
-	]
+		8000
+	],
+	"runArgs": [
+		"--add-host=host.docker.internal:host-gateway",
+		"--network=host"
+	],
+	"features": {}
 	// Use 'postCreateCommand' to run commands after the container is created.
 	//"postCreateCommand": "sh .devcontainer/docker-php-source-xdebug.sh"
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.

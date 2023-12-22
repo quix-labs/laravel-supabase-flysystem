@@ -19,6 +19,7 @@
     "require": {
         "php": "^8.1",
         "ext-fileinfo": "*",
+        "guzzlehttp/guzzle": "^7.2",
         "illuminate/contracts": "^10.0",
         "illuminate/filesystem": "^10.0",
         "illuminate/http": "^10.0",
@@ -61,7 +62,7 @@
             "@composer run build",
             "@php vendor/bin/testbench serve"
         ],
-        "analyse": "vendor/bin/phpstan analyse",
+        "analyse": "vendor/bin/phpstan analyse --memory-limit=1G",
         "test": "vendor/bin/pest",
         "test-coverage": "vendor/bin/pest --coverage",
         "format": "vendor/bin/pint"

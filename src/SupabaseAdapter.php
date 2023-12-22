@@ -40,10 +40,10 @@ class SupabaseAdapter implements FilesystemAdapter
     public function __construct(array $config)
     {
         $this->config = new Config($config);
-        $endpoint = $this->config->get('endpoint') ?? throw new \LogicException('You need to specified endpoint');
+        $endpoint = $this->config->get('endpoint') ?? throw new \LogicException('endpoint is not specified');
         $this->endpoint = $endpoint.'/storage/v1';
-        $this->bucket = $this->config->get('bucket') ?? throw new \LogicException('You need to specify bucket');
-        $this->key = $this->config->get('key') ?? throw new \LogicException('You need to specify key');
+        $this->bucket = $this->config->get('bucket') ?? throw new \LogicException('bucket is not specified');
+        $this->key = $this->config->get('key') ?? throw new \LogicException('key is not specified');
 
         $this->httpClient = Http::baseUrl($this->endpoint)->withHeaders([
             'Authorization' => "Bearer {$this->key}",

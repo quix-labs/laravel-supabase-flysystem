@@ -2,8 +2,8 @@
 
 namespace QuixLabs\LaravelSupabaseFlysystem\Tests;
 
-use QuixLabs\LaravelSupabaseFlysystem\ServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
+use QuixLabs\LaravelSupabaseFlysystem\ServiceProvider;
 
 class TestCase extends Orchestra
 {

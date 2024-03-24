@@ -1,6 +1,6 @@
 {
     "name": "quix-labs/laravel-supabase-flysystem",
-    "description": "This package allow you to use Supabase Storage in Laravel",
+    "description": "Supabase Adapter for Laravel Flysystem Storage",
     "keywords": [
         "flysystem",
         "supabase",

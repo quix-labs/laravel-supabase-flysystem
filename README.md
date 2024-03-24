@@ -12,10 +12,9 @@ Simplify file storage and retrieval using Laravel's convenient storage system wh
 ___
 
 ## Requirements
-* PHP version >= 8.1
-* Laravel 10.x
-* Fileinfo `ext-fileinfo`  (probably present)
-
+* PHP >= 8.1
+* Laravel 10.x|11.x
+* Fileinfo `ext-fileinfo`
 
 ## Installation
 

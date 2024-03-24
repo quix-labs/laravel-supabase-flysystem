@@ -1,5 +1,5 @@
 <?php
 
-use Alancolant\FlysystemSupabaseAdapter\Tests\TestCase;
+use QuixLabs\LaravelSupabaseFlysystem\Tests\TestCase;
 
 uses(TestCase::class)->in(__DIR__);

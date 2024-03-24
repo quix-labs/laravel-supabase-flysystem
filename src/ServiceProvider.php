@@ -1,6 +1,6 @@
 <?php
 
-namespace Alancolant\FlysystemSupabaseAdapter;
+namespace QuixLabs\LaravelSupabaseFlysystem;
 
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Filesystem\FilesystemAdapter;

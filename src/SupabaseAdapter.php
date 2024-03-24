@@ -1,6 +1,6 @@
 <?php
 
-namespace Alancolant\FlysystemSupabaseAdapter;
+namespace QuixLabs\LaravelSupabaseFlysystem;
 
 use GuzzleHttp\Psr7\Utils;
 use Illuminate\Http\Client\PendingRequest;

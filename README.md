@@ -1,9 +1,9 @@
 # Laravel Supabase Storage Adapter
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/alancolant/flysystem-supabase-adapter.svg?style=flat-square)](https://packagist.org/packages/alancolant/flysystem-supabase-adapter)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/alancolant/flysystem-supabase-adapter/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/alancolant/flysystem-supabase-adapter/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/alancolant/flysystem-supabase-adapter/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/alancolant/flysystem-supabase-adapter/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/alancolant/flysystem-supabase-adapter.svg?style=flat-square)](https://packagist.org/packages/alancolant/flysystem-supabase-adapter)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/quix-labs/laravel-supabase-flysystem.svg?style=flat-square)](https://packagist.org/packages/quix-labs/laravel-supabase-flysystem)
+[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/quix-labs/laravel-supabase-flysystem/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/quix-labs/laravel-supabase-flysystem/actions?query=workflow%3Arun-tests+branch%3Amain)
+[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/quix-labs/laravel-supabase-flysystem/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/quix-labs/laravel-supabase-flysystem/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
+[![Total Downloads](https://img.shields.io/packagist/dt/quix-labs/laravel-supabase-flysystem.svg?style=flat-square)](https://packagist.org/packages/quix-labs/laravel-supabase-flysystem)
 
 ___
 Easily integrate Supabase as a storage driver in Laravel with this Flysystem adapter.
@@ -21,7 +21,7 @@ ___
 
 To install the package, use Composer:
 ```bash
-composer require alancolant/flysystem-supabase-adapter
+composer require quix-labs/laravel-supabase-flysystem
 ```
 
 #### Configuration

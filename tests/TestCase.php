@@ -1,8 +1,8 @@
 <?php
 
-namespace Alancolant\FlysystemSupabaseAdapter\Tests;
+namespace QuixLabs\LaravelSupabaseFlysystem\Tests;
 
-use Alancolant\FlysystemSupabaseAdapter\ServiceProvider;
+use QuixLabs\LaravelSupabaseFlysystem\ServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra

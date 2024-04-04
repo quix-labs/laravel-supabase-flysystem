@@ -1,13 +1,14 @@
 {
     "name": "quix-labs/laravel-supabase-flysystem",
     "description": "Supabase Adapter for Laravel Flysystem Storage",
+    "type": "library",
+    "license": "MIT",
     "keywords": [
         "flysystem",
         "supabase",
         "laravel"
     ],
     "homepage": "https://github.com/quix-labs/laravel-supabase-flysystem",
-    "license": "MIT",
     "authors": [
         {
             "name": "COLANT Alan",
